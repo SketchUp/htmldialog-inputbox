@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="../vendor/Semantic-UI-CSS/semantic.min.css" rel="stylesheet">
+  <script src="../vendor/jquery.js"></script>
+  <script src="../vendor/Semantic-UI-CSS/semantic.min.js"></script>
+  <script src="../vendor/vue.js"></script>
+  <style>
+    body {
+      padding: 1em;
+    }
+    .equal-width label, .equal-width input, .equal-width select {
+      min-width: 48%;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="app" v-on:keyup.enter="accept" v-on:keyup.esc="cancel">
+    <form class="ui form equal-width">
+      <div class="inline field" v-for="(input, index) in options.inputs">
+        <label>{{ input.label }}: </label>
+        <template v-if="input.options.length > 0">
+          <select
+              v-model="input.value"
+              v-bind:autofocus.once="index == 0"
+              v-bind:size.once="input.type == 'listbox' ? 5 : null">
+            <option v-for="option in input.options">{{ option }}</option>
+          </select>
+        </template>
+        <template v-else>
+          <input
+              v-model="input.value"
+              v-bind:autofocus.once="index == 0"
+              onfocus="this.select()">
+        </template>
+      </div>
+    </form>
+    <p>
+      <button class="ui button" v-on:click="cancel">
+        {{ options.cancel_button }}
+      </button>
+      <button class="ui button" v-on:click="accept">
+        {{ options.accept_button }}
+      </button>
+    </p>
+  </div>
+
+  <script>
+    const KEY_RETURN = 13;
+    const KEY_ESC = 27;
+
+    let app = new Vue({
+      el: '#app',
+      data: {
+        options: {
+          title: 'Untitled',
+          inputs: [],
+        },
+      },
+      methods: {
+        accept() {
+          let values = this.options.inputs.map((input) => {
+            return input.value;
+          });
+          sketchup.accept(values);
+        },
+        cancel() {
+          sketchup.cancel();
+        },
+        global_keyup(event) {
+          switch (event.keyCode) {
+          case KEY_ESC:
+            this.cancel();
+            break;
+          case KEY_RETURN:
+            this.accept();
+            break;
+          }
+        }
+      },
+      mounted: function() {
+        window.addEventListener('keyup', (event) => {
+          this.global_keyup(event);
+        });
+        sketchup.ready();
+      }
+    });
+  </script>
+
+</body>
+</html>

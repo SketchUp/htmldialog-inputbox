@@ -45,7 +45,7 @@ module Example::HtmlInputBox
           :resizable => true,
           :width  => 400,
           :height => 600,
-          :min_width  => 100,
+          :min_width  => 230,
           :min_height => 200,
           :max_width  => 1000,
           :style => UI::HtmlDialog::STYLE_DIALOG

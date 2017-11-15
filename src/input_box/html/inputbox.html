@@ -1,46 +1,59 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <link href="../vendor/Semantic-UI-CSS/semantic.min.css" rel="stylesheet">
+  <link href="../vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
   <script src="../vendor/jquery.js"></script>
-  <script src="../vendor/Semantic-UI-CSS/semantic.min.js"></script>
+  <script src="../vendor/bootstrap/js/bootstrap.js"></script>
   <script src="../vendor/vue.js"></script>
   <style>
-    body {
+    body { overflow: hidden; }
+    .footer {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      text-align: right;
+      background: #fff;
+      border-top: 1px solid #ccc;
       padding: 1em;
+      margin: 0;
     }
-    .equal-width label, .equal-width input, .equal-width select {
-      min-width: 48%;
+    .footer button {
+      min-width: 6em;
     }
   </style>
 </head>
 <body>
 
-  <div id="app" v-on:keyup.enter="accept" v-on:keyup.esc="cancel">
-    <form class="ui form equal-width">
-      <div class="inline field" v-for="(input, index) in options.inputs">
-        <label>{{ input.label }}: </label>
-        <template v-if="input.options.length > 0">
-          <select
-              v-model="input.value"
-              v-bind:autofocus.once="index == 0"
-              v-bind:size.once="input.type == 'listbox' ? 5 : null">
-            <option v-for="option in input.options">{{ option }}</option>
-          </select>
-        </template>
-        <template v-else>
-          <input
-              v-model="input.value"
-              v-bind:autofocus.once="index == 0"
-              onfocus="this.select()">
-        </template>
+  <div id="app" v-on:keyup.enter="accept" v-on:keyup.esc="cancel" class="container-fluid">
+    <form class="form-horizontal">
+      <div class="form-group row" v-for="(input, index) in options.inputs">
+        <label class="col-sm-3 control-label">{{ input.label }}: </label>
+        <div class="col-sm-9">
+          <template v-if="input.options.length > 0">
+            <select
+                class="form-control"
+                v-model="input.value"
+                v-bind:autofocus.once="index == 0"
+                v-bind:size.once="input.type == 'listbox' ? 5 : null">
+              <option v-for="option in input.options">{{ option }}</option>
+            </select>
+          </template>
+          <template v-else>
+            <input
+                class="form-control"
+                v-model="input.value"
+                v-bind:autofocus.once="index == 0"
+                onfocus="this.select()">
+          </template>
+        </div>
       </div>
     </form>
-    <p>
-      <button class="ui button" v-on:click="cancel">
+    <p class="footer">
+      <button class="btn btn-secondary " v-on:click="cancel">
         {{ options.cancel_button }}
       </button>
-      <button class="ui button" v-on:click="accept">
+      <button class="btn btn-primary" v-on:click="accept">
         {{ options.accept_button }}
       </button>
     </p>

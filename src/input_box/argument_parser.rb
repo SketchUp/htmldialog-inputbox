@@ -1,6 +1,25 @@
 module Example::HtmlInputBox
+  # Class that parses the arguments for HtmlUI::InputBox.
+  #
+  # I process the arguments similar to UI.inputbox as well as offering an
+  # alternate variant.
   class ArgumentParser
 
+    # @overload initialize(options)
+    #   @param [Hash] options
+    #   @option options [String] :title ('')
+    #   @option options [Array<Input>] :inputs ([])
+    #
+    # @overload initialize(prompts, defaults = [], title = '')
+    #   @param [Array<String>] prompts
+    #   @param [Array<String, Length, Float, Integer>] defaults
+    #   @param [String] title
+    #
+    # @overload initialize(prompts, defaults = [], list = [], title = '')
+    #   @param [Array<String>] prompts
+    #   @param [Array<String, Length, Float, Integer>] defaults
+    #   @param [Array<String>] list
+    #   @param [String] title
     # @return [Hash]
     def parse(*args)
       if args.size == 1 && args[0].is_a?(Hash)
@@ -22,6 +41,19 @@ module Example::HtmlInputBox
       }
     end
 
+    # Parse arguments similar to UI.inputbox.
+    #
+    # @overload get_options_args(prompts, defaults = [], title = '')
+    #   @param [Array<String>] prompts
+    #   @param [Array<String, Length, Float, Integer>] defaults
+    #   @param [String] title
+    #
+    # @overload get_options_args(prompts, defaults = [], list = [], title = '')
+    #   @param [Array<String>] prompts
+    #   @param [Array<String, Length, Float, Integer>] defaults
+    #   @param [Array<String>] list
+    #   @param [String] title
+    #
     # @return [Hash]
     def get_options_args(*args)
       unless (1..4).include?(args.size)

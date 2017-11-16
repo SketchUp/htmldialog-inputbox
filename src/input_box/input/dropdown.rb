@@ -1,12 +1,10 @@
-require 'json'
-
-require 'input_box/input'
+require 'input_box/input/input'
 
 
 module Example::HtmlInputBox
   module HtmlUI
 
-    class Listbox < Input
+    class Dropdown < Input
 
       def initialize(label, default = nil, options = [])
         super(label: label, default: default, options: options)

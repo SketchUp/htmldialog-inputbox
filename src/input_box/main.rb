@@ -2,9 +2,9 @@ require 'sketchup.rb'
 
 require 'input_box/debug'
 require 'input_box/html_ui'
-require 'input_box/textbox'
-require 'input_box/dropdown'
-require 'input_box/listbox'
+require 'input_box/input/textbox'
+require 'input_box/input/dropdown'
+require 'input_box/input/listbox'
 
 
 module Example::HtmlInputBox
@@ -23,6 +23,7 @@ module Example::HtmlInputBox
     file_loaded(__FILE__)
   end
 
+  # Simple example with similar calling signature as UI.inputbox.
   def self.prompt_without_options
     title = 'Tell me about yourself'
     prompts = ['What is your Name?', 'What is your Age?', 'Gender']
@@ -31,6 +32,7 @@ module Example::HtmlInputBox
     p results
   end
 
+  # Simple example with similar calling signature as UI.inputbox.
   def self.prompt_with_options
     title = 'Tell me about yourself'
     prompts = ['What is your Name?', 'What is your Age?', 'Gender']
@@ -40,6 +42,7 @@ module Example::HtmlInputBox
     p results
   end
 
+  # Example of how more advanced inputs can be created.
   def self.prompt_advanced
     options = {
       title: 'HtmlDialog Options',

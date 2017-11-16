@@ -5,7 +5,8 @@ require 'input_box/argument_parser'
 
 module Example::HtmlInputBox
   module HtmlUI
-
+    # Class that uses UI::HtmlDialog to create a dialog box that operates
+    # similar to UI.inputbox.
     class InputBox
 
       # @overload initialize(options)

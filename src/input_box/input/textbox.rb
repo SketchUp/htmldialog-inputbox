@@ -1,6 +1,4 @@
-require 'json'
-
-require 'input_box/input'
+require 'input_box/input/input'
 
 
 module Example::HtmlInputBox

@@ -13,8 +13,8 @@ It uses [Vue.js](https://vuejs.org/) for data binding and [Bootstrap](https://ge
 ```ruby
   def self.prompt_without_options
     title = 'Tell me about yourself'
-    prompts = ['What is your Name?', 'What is your Age?', 'Gender']
-    defaults = ['Enter name', 42, 'Male']
+    prompts = ['What is your name?', 'What is your age?', 'Pet?']
+    defaults = ['Enter name', 42, 'None']
     results = HtmlUI.inputbox(prompts, defaults, title)
     p results
   end
@@ -25,9 +25,9 @@ It uses [Vue.js](https://vuejs.org/) for data binding and [Bootstrap](https://ge
 ```ruby
   def self.prompt_with_options
     title = 'Tell me about yourself'
-    prompts = ['What is your Name?', 'What is your Age?', 'Gender']
-    defaults = ['Enter name', 42, 'Male']
-    list = ['', '', 'Male|Female']
+    prompts = ['What is your Name?', 'What is your age?', 'Pet?']
+    defaults = ['Enter name', 42, 'Cat']
+    list = ['', '', 'None|Cat|Dog|Other']
     results = HtmlUI.inputbox(prompts, defaults, list, title)
     p results
   end
@@ -44,9 +44,11 @@ It uses [Vue.js](https://vuejs.org/) for data binding and [Bootstrap](https://ge
       inputs: [
         HtmlUI::Textbox.new('Name'),
         HtmlUI::Textbox.new('Age', 42),
-        HtmlUI::Dropdown.new('Gender', 'Male', ['Male', 'Female']),
+        HtmlUI::Dropdown.new('Pet', 'Cat', [
+          'None', 'Cat', 'Dog', 'Parrot (Resting)', 'Other'
+        ]),
         HtmlUI::Listbox.new('Profession', 'Minion', [
-          'None', 'Developer', 'Dictator', 'Minion'
+          'None', 'Architect', 'Urban Planner', 'Model Railroad Designer', 'Other'
         ]),
       ]
     }

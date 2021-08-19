@@ -1,8 +1,8 @@
 #-------------------------------------------------------------------------------
 #
-#    Author: Unknown
-# Copyright: Copyright (c) 2017
-#   License: None
+#    Author: Trimble Inc, SketchUp Team
+# Copyright: Copyright (c) 2017-2021
+#   License: MIT
 #
 #-------------------------------------------------------------------------------
 

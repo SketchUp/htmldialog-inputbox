@@ -2,9 +2,10 @@ require 'sketchup.rb'
 
 require 'input_box/debug'
 require 'input_box/html_ui'
-require 'input_box/input/textbox'
+require 'input_box/input/checkbox'
 require 'input_box/input/dropdown'
 require 'input_box/input/listbox'
+require 'input_box/input/textbox'
 
 
 module Example::HtmlInputBox
@@ -57,6 +58,8 @@ module Example::HtmlInputBox
         HtmlUI::Listbox.new('Profession', 'Minion', [
           'None', 'Architect', 'Urban Planner', 'Model Railroad Designer', 'Other'
         ]),
+        HtmlUI::Checkbox.new('Married', false),
+        HtmlUI::Checkbox.new('Retired', true),
       ]
     }
     dialog = HtmlUI::InputBox.new(options)

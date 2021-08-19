@@ -33,27 +33,13 @@
 
   <div id="app" v-on:keyup.enter="accept" v-on:keyup.esc="cancel" class="container-fluid">
     <form class="form-horizontal">
-      <div class="form-group row" v-for="(input, index) in options.inputs">
-        <label class="col-sm-3 control-label">{{ input.label }}: </label>
-        <div class="col-sm-9">
-          <template v-if="input.options.length > 0">
-            <select
-                class="form-control"
-                v-model="input.value"
-                v-bind:autofocus.once="index == 0"
-                v-bind:size.once="input.type == 'listbox' ? 5 : null">
-              <option v-for="option in input.options">{{ option }}</option>
-            </select>
-          </template>
-          <template v-else>
-            <input
-                class="form-control"
-                v-model="input.value"
-                v-bind:autofocus.once="index == 0"
-                onfocus="this.select()">
-          </template>
-        </div>
-      </div>
+      <component
+          class="row form-group"
+          v-bind:is="'su-' + input.type"
+          v-bind:input="input"
+          v-bind:index="index"
+          v-for="(input, index) in options.inputs">
+      </component>
     </form>
     <p class="footer">
       <button class="btn btn-secondary " v-on:click="cancel">
@@ -68,6 +54,86 @@
   <script>
     const KEY_RETURN = 13;
     const KEY_ESC = 27;
+
+    Vue.component('su-textbox', {
+      props: ['index', 'input'],
+      template: `
+        <div>
+          <label
+              class="col-sm-3 control-label"
+              v-bind:for.once="'suCheckbox' + index">{{ input.label }}: </label>
+          <div class="col-sm-9">
+            <input
+                class="form-control"
+                v-bind:id.once="'suCheckbox' + index"
+                v-model="input.value"
+                v-bind:autofocus.once="index == 0"
+                onfocus="this.select()">
+          </div>
+        </div>
+      `
+    });
+
+    Vue.component('su-checkbox', {
+      props: ['index', 'input'],
+      template: `
+        <div class="container-fluid">
+        <div class="form-check">
+          <input
+              type="checkbox"
+              class="form-check-input"
+              v-bind:id.once="'suCheckbox' + index"
+              v-model="input.value"
+              v-bind:autofocus.once="index == 0"
+              onfocus="this.select()">
+          <label
+              class="form-check-label"
+              v-bind:for.once="'suCheckbox' + index">{{ input.label }}</label>
+        </div>
+        </div>
+      `
+    });
+
+    Vue.component('su-listbox', {
+      props: ['index', 'input'],
+      template: `
+        <div>
+          <label
+              class="col-sm-3 control-label"
+              v-bind:for.once="'suCheckbox' + index">{{ input.label }}: </label>
+          <div class="col-sm-9">
+            <select
+                class="form-control"
+                v-bind:id.once="'suCheckbox' + index"
+                v-model="input.value"
+                v-bind:autofocus.once="index == 0"
+                v-bind:size.once="5">
+              <option v-for="option in input.options">{{ option }}</option>
+            </select>
+          </div>
+        </div>
+      `
+    });
+
+    Vue.component('su-dropdown', {
+      props: ['index', 'input'],
+      template: `
+        <div>
+          <label
+              class="col-sm-3 control-label"
+              v-bind:for.once="'suCheckbox' + index">{{ input.label }}: </label>
+          <div class="col-sm-9">
+            <select
+                class="form-control"
+                v-bind:id.once="'suCheckbox' + index"
+                v-model="input.value"
+                v-bind:autofocus.once="index == 0">
+              <option v-for="option in input.options">{{ option }}</option>
+            </select>
+          </div>
+        </div>
+      `
+    });
 
     let app = new Vue({
       el: '#app',

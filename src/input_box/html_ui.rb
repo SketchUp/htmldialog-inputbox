@@ -81,6 +81,8 @@ module Example::HtmlInputBox
             value.to_f
           when Integer
             value.to_i
+          when TrueClass, FalseClass
+            !!value
           else
             value.to_s
           end

@@ -55,7 +55,7 @@ module Example::HtmlInputBox
         HtmlUI::Dropdown.new('Pet', 'Cat', [
           'None', 'Cat', 'Dog', 'Parrot (Resting)', 'Other'
         ]),
-        HtmlUI::Listbox.new('Profession', 'Minion', [
+        HtmlUI::Listbox.new('Profession', 'Model Railroad Designer', [
           'None', 'Architect', 'Urban Planner', 'Model Railroad Designer', 'Other'
         ]),
         HtmlUI::Checkbox.new('Married', false),

@@ -27,8 +27,8 @@ module Example::HtmlInputBox
   # Simple example with similar calling signature as UI.inputbox.
   def self.prompt_without_options
     title = 'Tell me about yourself'
-    prompts = ['What is your name?', 'What is your age?', 'Pet?']
-    defaults = ['Enter name', 42, 'None']
+    prompts = ['What is your name?', 'What is your age?', 'What is your height?', 'Pet?']
+    defaults = ['Enter name', 42, 1.8.m, 'None']
     results = HtmlUI.inputbox(prompts, defaults, title)
     p results
   end
@@ -36,9 +36,9 @@ module Example::HtmlInputBox
   # Simple example with similar calling signature as UI.inputbox.
   def self.prompt_with_options
     title = 'Tell me about yourself'
-    prompts = ['What is your Name?', 'What is your age?', 'Pet?']
-    defaults = ['Enter name', 42, 'Cat']
-    list = ['', '', 'None|Cat|Dog|Other']
+    prompts = ['What is your Name?', 'What is your age?', 'What is your height?', 'Pet?']
+    defaults = ['Enter name', 42, 1.8.m, 'Cat']
+    list = ['', '', '', 'None|Cat|Dog|Other']
     results = HtmlUI.inputbox(prompts, defaults, list, title)
     p results
   end

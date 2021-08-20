@@ -59,6 +59,7 @@ module Example::HtmlInputBox
       unless (1..4).include?(args.size)
         raise ArgumentError, '1 to 4 arguments required'
       end
+
       # Extract the arguments.
       arguments = {
         title: '',
@@ -69,6 +70,8 @@ module Example::HtmlInputBox
       if args.size > 1
         arguments[:defaults] = ensure_array(args, 1)
       end
+      # The position of the `title` argument depend on whether the `list`
+      # argument is being used.
       title_index = 2
       if args.size > 2 && args[2].is_a?(Array)
         arguments[:list] = args[2].map { |object| object.to_s.split('|') }
@@ -77,6 +80,7 @@ module Example::HtmlInputBox
       if args.size > title_index
         arguments[:title] = args[title_index].to_s
       end
+
       # Convert to option hash.
       options = {
         title: arguments[:title],
@@ -88,35 +92,22 @@ module Example::HtmlInputBox
           label: prompt.to_s,
           value: '',
           options: [],
+          type: 'textbox',
         }
         # Default
         if default = arguments[:defaults][index]
           input[:default] = default
           input[:value] = default
-          input[:type] = get_type(default)
         end
         # Options
-        if list = arguments[:list][index]
+        list = arguments[:list][index]
+        if list && !list.empty?
           input[:options] = list
+          input[:type] = 'dropdown'
         end
         options[:inputs] << input
       }
       options
-    end
-
-    # @param [Object] object
-    # @return [String]
-    def get_type(object)
-      case object
-      when Length
-        'length'
-      when Float
-        'float'
-      when Integer
-        'integer'
-      else
-        'string'
-      end
     end
 
     # @param [Array] arguments

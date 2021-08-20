@@ -33,12 +33,11 @@
 
   <div id="app" v-on:keyup.enter="accept" v-on:keyup.esc="cancel" class="container-fluid">
     <form class="form-horizontal">
-      <component
-          class="row form-group"
+      <component class="row form-group"
           v-bind:is="'su-' + input.type"
-          v-bind:input="input"
+          v-bind:control-id.once="controlId(index)"
           v-bind:index="index"
-          v-for="(input, index) in options.inputs">
+          v-bind:input="input" v-for="(input, index) in options.inputs">
       </component>
     </form>
     <p class="footer">
@@ -56,16 +55,16 @@
     const KEY_ESC = 27;
 
     Vue.component('su-textbox', {
-      props: ['index', 'input'],
+      props: ['index', 'controlId', 'input'],
       template: `
         <div>
           <label
               class="col-sm-3 control-label"
-              v-bind:for.once="'suCheckbox' + index">{{ input.label }}: </label>
+              v-bind:for.once="controlId">{{ input.label }}: </label>
           <div class="col-sm-9">
             <input
                 class="form-control"
-                v-bind:id.once="'suCheckbox' + index"
+                v-bind:id.once="controlId"
                 v-model="input.value"
                 v-bind:autofocus.once="index == 0"
                 onfocus="this.select()">
@@ -75,36 +74,36 @@
     });
 
     Vue.component('su-checkbox', {
-      props: ['index', 'input'],
+      props: ['index', 'controlId', 'input'],
       template: `
         <div class="container-fluid">
         <div class="form-check">
           <input
               type="checkbox"
               class="form-check-input"
-              v-bind:id.once="'suCheckbox' + index"
+              v-bind:id.once="controlId"
               v-model="input.value"
               v-bind:autofocus.once="index == 0"
               onfocus="this.select()">
           <label
               class="form-check-label"
-              v-bind:for.once="'suCheckbox' + index">{{ input.label }}</label>
+              v-bind:for.once="controlId">{{ input.label }}</label>
         </div>
         </div>
       `
     });
 
     Vue.component('su-listbox', {
-      props: ['index', 'input'],
+      props: ['index', 'controlId', 'input'],
       template: `
         <div>
           <label
               class="col-sm-3 control-label"
-              v-bind:for.once="'suCheckbox' + index">{{ input.label }}: </label>
+              v-bind:for.once="controlId">{{ input.label }}: </label>
           <div class="col-sm-9">
             <select
                 class="form-control"
-                v-bind:id.once="'suCheckbox' + index"
+                v-bind:id.once="controlId"
                 v-model="input.value"
                 v-bind:autofocus.once="index == 0"
                 v-bind:size.once="5">
@@ -116,16 +115,16 @@
     });
 
     Vue.component('su-dropdown', {
-      props: ['index', 'input'],
+      props: ['index', 'controlId', 'input'],
       template: `
         <div>
           <label
               class="col-sm-3 control-label"
-              v-bind:for.once="'suCheckbox' + index">{{ input.label }}: </label>
+              v-bind:for.once="controlId">{{ input.label }}: </label>
           <div class="col-sm-9">
             <select
                 class="form-control"
-                v-bind:id.once="'suCheckbox' + index"
+                v-bind:id.once="controlId"
                 v-model="input.value"
                 v-bind:autofocus.once="index == 0">
               <option v-for="option in input.options">{{ option }}</option>
@@ -153,22 +152,25 @@
         cancel() {
           sketchup.cancel();
         },
-        global_keyup(event) {
+        controlId(index) {
+          return `suInputControl${index}`;
+        },
+        globalKeyup(event) {
           switch (event.keyCode) {
-          case KEY_ESC:
-            this.cancel();
-            break;
-          case KEY_RETURN:
-            // This will need adjustments if a <textarea> field is desired.
-            this.accept();
-            break;
+            case KEY_ESC:
+              this.cancel();
+              break;
+            case KEY_RETURN:
+              // This will need adjustments if a <textarea> field is desired.
+              this.accept();
+              break;
           }
         }
       },
-      mounted: function() {
+      mounted: function () {
         // Capture global key events.
         window.addEventListener('keyup', (event) => {
-          this.global_keyup(event);
+          this.globalKeyup(event);
         });
         // Signal the Ruby side that the dialog is ready to be interacted with.
         sketchup.ready();

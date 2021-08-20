@@ -67,16 +67,4 @@ module Example::HtmlInputBox
     p results
   end
 
-  def self.reload
-    t = Time.now
-    original_verbose = $VERBOSE
-    $VERBOSE = nil
-    x = Dir.glob(File.join(PATH, '**/*.rb')).each { |file|
-      load file
-    }
-    x.size
-  ensure
-    $VERBOSE = original_verbose
-  end
-
 end # module

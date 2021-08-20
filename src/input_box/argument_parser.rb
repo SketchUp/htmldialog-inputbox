@@ -1,7 +1,7 @@
 module Example::HtmlInputBox
   # Class that parses the arguments for HtmlUI::InputBox.
   #
-  # It process the arguments similar to UI.inputbox as well as offering an
+  # It processes the arguments similar to UI.inputbox as well as offering an
   # alternate variant.
   class ArgumentParser
 

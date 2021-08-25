@@ -15,7 +15,7 @@ module Example::HtmlInputBox
       def as_json(options = {})
         {
           label: @label,
-          value: @default || '',
+          value: @default,
           default: @default,
           options: @options,
           type: self.class.name.downcase.split('::').last

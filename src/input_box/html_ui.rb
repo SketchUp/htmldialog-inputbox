@@ -82,7 +82,8 @@ module Example::HtmlInputBox
           when Integer
             value.to_i
           when TrueClass, FalseClass
-            !!value
+            # We're getting true/false values from Vue, no need to post-process.
+            value
           else
             value.to_s
           end

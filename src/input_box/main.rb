@@ -58,7 +58,7 @@ module Example::HtmlInputBox
         HtmlUI::Listbox.new('Profession', 'Model Railroad Designer', [
           'None', 'Architect', 'Urban Planner', 'Model Railroad Designer', 'Other'
         ]),
-        HtmlUI::Checkbox.new('Married', false),
+        HtmlUI::Checkbox.new('Married'),
         HtmlUI::Checkbox.new('Retired', true),
       ]
     }

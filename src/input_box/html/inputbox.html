@@ -31,7 +31,7 @@
 </head>
 <body>
 
-  <div id="app" v-on:submit.prevent="onSubmit" v-on:keydown.enter="accept" v-on:keyup.esc="cancel" class="container-fluid">
+  <div id="app" v-on:submit.prevent="onSubmit" v-on:keydown.enter="accept" v-on:keydown.esc="cancel" class="container-fluid">
     <form class="form-horizontal">
       <component class="row form-group"
           v-bind:is="'su-' + input.type"
